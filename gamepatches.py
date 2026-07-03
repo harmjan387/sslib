@@ -1887,9 +1887,9 @@ class GamePatcher:
                     )
 
         for dungeon, exit_name in DUNGEON_EXIT_NAMES.items():
-            entrance = [
-                ent for ex, ent in self.placement_file.entrances if ex == exit_name
-            ].pop()
+            entrance = next((ent for ex, ent in self.placement_file.entrances if ex == exit_name), None)
+            if entrance is None:
+                continue
             entrance_stage = self.entrances[entrance]["stage"]
             entrance_room = self.entrances[entrance]["room"]
             entrance_index = self.entrances[entrance]["entrance"]
